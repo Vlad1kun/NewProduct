@@ -1,2 +1,5 @@
 Flask
 Gunicorn
+beautifulsoup4
+requests
+threaded
