@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>News</title>
+</head>
+<body>
+    <h1>News</h1>
+    <ol style="padding:20px; font-size: 24px; width: 80%; margin: 0 auto;">
+        {% for entry in entries|reverse %}
+            <li style="border:3px solid gray; padding:20px; border-radius: 5%;">{{ entry[1] }}<br><a style="text-decoration:none; color: red;" href="{{ entry[0] }}">Перейти на оригинал {{ entry[0] }}</a></li>
+        {% endfor %}
+    </ol>
+</body>
+</html>
