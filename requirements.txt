@@ -1,5 +1,3 @@
-Flask
+freeGPT
 Gunicorn
-beautifulsoup4
-requests
-threaded
+pyTelegramBotAPI
