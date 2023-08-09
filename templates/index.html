@@ -1,16 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Chat Bot</title>
+    <title>Последние новости</title>
 </head>
 <body>
-    <h1>Chat Bot</h1>
-    <form method="POST" action="/process">
-        <input type="text" name="message" placeholder="Введите сообщение">
-        <input type="submit" value="Отправить">
-    </form>
-    {% if response %}
-        <p>{{ response }}</p>
-    {% endif %}
+    <h1>Последние новости</h1>
+    <ul>
+        {% for article in articles %}
+            <li>
+                <h3>{{ article.title }}</h3>
+                <p>{{ article.description }}</p>
+                 <p><b>{{ article.publishedAt }}</b></p>
+                <p>Источник: <a href={{ article.url }}>{{ article.source.name }}</a></p>
+            </li>
+        {% endfor %}
+    </ul>
+    {% for i in res %}
+    	<h1>{{ i }}</h1>
+    {% endfor %}
 </body>
 </html>
