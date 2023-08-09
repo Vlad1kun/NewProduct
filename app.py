@@ -4,10 +4,18 @@ import freeGPT
 from asyncio import run
 
 async def main(text):
-    prompt = 'ты Журналист с опытом 10 лет работы,перепиши этот текст красиво,добавь смайлики,если текст заканчиваеться на прочитать далее или что в таком духе то закончи его, передай глвную суть в 50 слов,переведи на русский язык: ' + text
+    prompt = 'переведи текст на руский и сделай текст уникальным, в дружелюбном стиле и понятным для студента, если текст незакончен и написано читать далее то удали это: ' + text #ты Журналист с опытом 10 лет работы,перепиши этот текст красиво,добавь смайлики,если текст заканчиваеться на прочитать далее или что в таком духе то закончи его, передай глвную суть в 50 слов,переведи на русский язык, пиши в дружелюбном и понятном для студента стиле:
     try:
             resp = await getattr(freeGPT, "gpt3").Completion().create(prompt)
-            return f"🤖: {resp}"
+            return f" {resp}"
+    except Exception as e:
+            print(f"🤖: {e}")
+
+async def translate(text):
+    prompt = 'переведи текст на руский' + text 
+    try:
+            resp = await getattr(freeGPT, "gpt3").Completion().create(prompt)
+            return f" {resp}"
     except Exception as e:
             print(f"🤖: {e}")
 
@@ -49,10 +57,11 @@ def get_news():
 def index():
     # Получаем новости при обращении к странице
     articles = get_news()
-    res = [run(main(articles[0]['description'])), run(main(articles[1]['description'])), run(main(articles[2]['description'])), run(main(articles[3]['description'])), run(main(articles[4]['description']))]
+    desq = [run(main(articles[0]['description'])), run(main(articles[1]['description'])), run(main(articles[2]['description'])), run(main(articles[3]['description'])), run(main(articles[4]['description']))]
+    titles = [run(translate(articles[0]['title'])), run(translate(articles[1]['title'])), run(translate(articles[2]['title'])), run(translate(articles[3]['title'])), run(translate(articles[4]['title']))]
     
     # Отображаем шаблон index.html и передаем список статей
-    return render_template('index.html', articles=articles, res=res)
+    return render_template('index.html', articles=articles, titles=titles, desq=desq)
 
 if __name__ == '__main__':
     app.run(debug=True)
