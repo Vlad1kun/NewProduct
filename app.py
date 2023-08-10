@@ -4,8 +4,8 @@ import freeGPT
 from asyncio import run, create_task
 
 async def main(text, text2, title1, title2):
-    prompt = 'переведи на русский, перепиши текст уникальным и в дружелюбном и понятном для студента стиле' + title1
-    prompt2 = 'переведи на русский, перепиши текст уникальным и в дружелюбном и понятном для студента стиле' + title2
+    prompt = 'переведи на русский' + title1
+    prompt2 = 'переведи на русский' + title2
     prompt6 = 'переведи на русский' + text
     prompt7 = 'переведи на русский' + text2
     
