@@ -1,13 +1,32 @@
 from flask import Flask, render_template
 import requests
 import freeGPT
-from asyncio import run
+from asyncio import run, create_task
 
-async def main(text):
-    prompt = 'переведи текст на руский и сделай текст уникальным, в дружелюбном стиле и понятным для студента: ' + text #ты Журналист с опытом 10 лет работы,перепиши этот текст красиво,добавь смайлики,если текст заканчиваеться на прочитать далее или что в таком духе то закончи его, передай глвную суть в 50 слов,переведи на русский язык, пиши в дружелюбном и понятном для студента стиле:
+async def main(text, text2, text3, text4, text5, title1, title2, title3, title4, title5):
+    prompt = 'переведи на русский, перепиши текст уникальным и в дружелюбном и понятном для студента стиле' + title1
+    prompt2 = 'переведи на русский, перепиши текст уникальным и в дружелюбном и понятном для студента стиле' + title2
+    prompt3 = 'переведи на русский, перепиши текст уникальным и в дружелюбном и понятном для студента стиле' + title3
+    prompt4 = 'переведи на русский, перепиши текст уникальным и в дружелюбном и понятном для студента стиле' + title4
+    prompt5 = 'переведи на русский, перепиши текст уникальным и в дружелюбном и понятном для студента стиле' + title5
+    prompt6 = 'переведи на русский' + text
+    prompt7 = 'переведи на русский' + text2
+    prompt8 = 'переведи на русский' + text3
+    prompt9 = 'переведи на русский' + text4
+    prompt10 = 'переведи на русский' + text5
+    
     try:
             resp = await getattr(freeGPT, "gpt3").Completion().create(prompt)
-            return f" {resp}"
+            resp2 = await getattr(freeGPT, "gpt3").Completion().create(prompt2)
+            resp3 = await getattr(freeGPT, "gpt3").Completion().create(prompt3)
+            resp4 = await getattr(freeGPT, "gpt3").Completion().create(prompt4)
+            resp5 = await getattr(freeGPT, "gpt3").Completion().create(prompt5)
+            resp6 = await getattr(freeGPT, "gpt3").Completion().create(prompt6)
+            resp7 = await getattr(freeGPT, "gpt3").Completion().create(prompt7)
+            resp8 = await getattr(freeGPT, "gpt3").Completion().create(prompt8)
+            resp9 = await getattr(freeGPT, "gpt3").Completion().create(prompt9)
+            resp10 = await getattr(freeGPT, "gpt3").Completion().create(prompt10)
+            return {'text': [resp, resp2, resp3, resp4, resp5], 'title': [resp6, resp7, resp8, resp9, resp10]}
     except Exception as e:
             print(f"🤖: {e}")
 
@@ -49,11 +68,10 @@ def get_news():
 def index():
     # Получаем новости при обращении к странице
     articles = get_news()
-    desq = [run(main(articles[0]['description'])), run(main(articles[1]['description'])), run(main(articles[2]['description'])), run(main(articles[3]['description'])), run(main(articles[4]['description']))]
-    
-    
+    # res = [run(main(articles[0]['description'])), run(main(articles[1]['description'])), run(main(articles[2]['description'])), run(main(articles[3]['description'])), run(main(articles[4]['description']))]
+    res = run(main(articles[0]['description'], articles[1]['description'], articles[2]['description'], articles[3]['description'], articles[4]['description'], articles[0]['title'], articles[1]['title'], articles[2]['title'], articles[3]['title'], articles[4]['title']))
     # Отображаем шаблон index.html и передаем список статей
-    return render_template('index.html', articles=articles,  desq=desq)
+    return render_template('index.html', articles=articles, res=res)
 
 if __name__ == '__main__':
     app.run(debug=True)
