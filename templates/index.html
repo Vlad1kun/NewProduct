@@ -69,16 +69,16 @@
 </head>
 <body>
     <div class="wrapper">
-        <h1 class="title">Последние новости о нейросетях </h1>
+        <h1 class="title">Последние новости о нейросетях</h1>
     <ul class="list_news">
         {% for j in range(5) %}
             <li class="news_content">
-                <p class="desc">{{ desq[j] }}</p>
+                <h3 class="article_title">{{ res['title'][j] }}</h3>
+                <p class="desc">{{ res['text'][j] }}</p>
                  <p class="date">{{ articles[j].publishedAt }}</p>
                 <p class="link">Источник: <a href={{ articles[j].url }}>{{ articles[j].source.name }}</a></p>
             </li>
-        {% endfor %}
-    </ul>
+        {% endfor %} 
     </div>
 </body>
 </html>
