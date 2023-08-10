@@ -71,14 +71,15 @@
     <div class="wrapper">
         <h1 class="title">Последние новости о нейросетях</h1>
     <ul class="list_news">
-        {% for j in range(5) %}
+        {% for j in range(2) %}
             <li class="news_content">
                 <h3 class="article_title">{{ res['title'][j] }}</h3>
                 <p class="desc">{{ res['text'][j] }}</p>
                  <p class="date">{{ articles[j].publishedAt }}</p>
                 <p class="link">Источник: <a href={{ articles[j].url }}>{{ articles[j].source.name }}</a></p>
             </li>
-        {% endfor %} 
+        {% endfor %}
+    </ul>
     </div>
 </body>
 </html>
